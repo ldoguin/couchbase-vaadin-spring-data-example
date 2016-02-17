@@ -1,11 +1,12 @@
 package hello;
 
+import org.vaadin.viritin.form.AbstractForm;
+import org.vaadin.viritin.layouts.MFormLayout;
+
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TextField;
-import org.vaadin.viritin.form.AbstractForm;
-import org.vaadin.viritin.layouts.MFormLayout;
 
 @SpringComponent
 @UIScope

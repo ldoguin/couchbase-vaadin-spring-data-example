@@ -5,9 +5,6 @@ import org.springframework.data.couchbase.core.CouchbaseTemplate;
 import org.vaadin.viritin.fields.MTable;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
-import com.couchbase.client.java.view.Stale;
-import com.couchbase.client.java.view.ViewQuery;
-import com.google.gwt.thirdparty.guava.common.collect.Lists;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
@@ -27,14 +24,12 @@ public class VaadinUI extends UI {
 
 	private final Button addNewBtn;
 
-	private final CouchbaseTemplate couchbasetemplate;
 	@Autowired
 	public VaadinUI(CustomerRepository repo, CustomerEditor editor, CouchbaseTemplate couchbasetemplate) {
 		this.repo = repo;
 		this.editor = editor;
 		this.grid = new MTable<>(Customer.class).withProperties("id", "firstName", "lastName").withHeight("300px");
 		this.addNewBtn = new Button("New customer", FontAwesome.PLUS);
-		this.couchbasetemplate = couchbasetemplate;
 	}
 
 	@Override
@@ -76,9 +71,7 @@ public class VaadinUI extends UI {
 	}
 
 	private void listCustomers() {
-		ViewQuery viewQuery = ViewQuery.from("customer", "all");
-		viewQuery.stale(Stale.FALSE);
-        grid.setBeans(couchbasetemplate.findByView(viewQuery, Customer.class));
+        grid.setBeans(repo.findAll());
 	}
 
 }
